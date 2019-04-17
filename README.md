@@ -17,6 +17,22 @@ Each waypoint in the list contains  [x,y,s,dx,dy] values. x and y are the waypoi
 
 The highway's waypoints loop around so the frenet s value, distance along the road, goes from 0 to 6945.554.
 
+## Reflection
+
+All the code is implemented in main.cpp file and and lecture in project FAQ was referred to understand the helper functions and waypoint trajectory generation.
+
+### Velocity and Lane Control:
+It's important that the car doesn't crash into any of the other vehicles on the road, all of which are moving at different speeds around the speed limit and can change lanes. Provided sensor_fusion variable contains all the information about the cars on the right-hand side of the road. These values useful for predicting where the car(s) will be in the future. Sensor fusion data with telemetry used in code (from line 254 of main.cpp) to predict car(s) movement. Prediction done if car is in path, car is in left or car is in right. Based on prediction and car speed, change lane decision taken (line 295) and same logic used to control velocity of car. Max speed limit, accelaration and Jerk behaviour managed in this section. This helps creating smooth path with change lane and with control on speed.
+
+### Trajectory Generation and Path Planning:
+The path planner outputs a list of x and y global map coordinates. All the X and Y co-ordinates points together form a trajectory.
+For smooth path planner and trajectory formation, previous history points used as reference and same appended as way points. (Line 325).
+getXY helper API converts Frenet (s,d) coordinates of may waypoints and transforms them to (x,y) coordinates. (Line 350)
+Interpolation of points and smooth trajectory spline library used. (Line 373)
+The car moves from point to point perfectly, so controller is not built.
+Final x and y values sent further to simulator.
+
+
 ## Basic Build Instructions
 
 1. Clone this repo.
